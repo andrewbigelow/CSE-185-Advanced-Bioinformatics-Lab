@@ -14,10 +14,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Store CSV data
-csv_data_untrimmed = p.read_csv('~/RNA_seq_analysis/chow_vs_hfd_deseq2.csv')
+csv_data_untrimmed = p.read_csv('RNA_seq_analysis/chow_vs_hfd_deseq2.csv')
 
 # Map gene names
-gene_mapping = p.read_csv('~/RNA_seq_analysis/GRCm38.75.gene_names', sep='\t', header=None, index_col=0)
+gene_mapping = p.read_csv('RNA_seq_analysis/GRCm38.75.gene_names', sep='\t', header=None, index_col=0)
 gene_mapping_dict = gene_mapping[1].to_dict()
 
 # Store data as [log2FoldChange, -log10 pvalue]
@@ -46,7 +46,8 @@ for i, row in top_genes.iterrows():
     # Annotate top genes with their complements from the other file
     gene_name = csv_data_untrimmed.iloc[i, 0]
     complement = gene_mapping_dict.get(gene_name, "Unknown")
-    plt.annotate(complement, (row[csv_data.columns[0]], row[csv_data.columns[1]]))
+    plt.annotate(complement, (row[csv_data.columns[0]], row[csv_data.columns[1]]), fontsize=8)
     print(f"Gene name: {complement}, log2 Fold Change: {row[csv_data.columns[0]]}, p-value: {10 ** -(row[csv_data.columns[1]])}")
 
-plt.show
+# Save plot in directory
+plt.savefig("volcano_plot.png")
