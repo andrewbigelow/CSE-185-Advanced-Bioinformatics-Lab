@@ -37,7 +37,7 @@ import pandas as pd
 import zipfile
 
 # Extract zip file
-zip_filename = "lab3_gwas_covar.zip"
+zip_filename = "GWAS_plink_analysis/lab3_gwas_covar.assoc.linear.zip"
 with zipfile.ZipFile(zip_filename, "r") as zip_ref:
     zip_ref.extractall()
 
@@ -51,3 +51,6 @@ fig, (ax0, ax1) = plt.subplots(1, 2, gridspec_kw={'width_ratios': [2, 1]})
 fig.set_size_inches((15, 5))
 qqman.manhattan(covdata, ax=ax0)
 qqman.qqplot(covdata, ax=ax1)
+
+# Save plots in directory
+fig.savefig("manhattan_and_qq_plot.png")
