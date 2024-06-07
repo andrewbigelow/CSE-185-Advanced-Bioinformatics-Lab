@@ -14,10 +14,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Store CSV data
-csv_data_untrimmed = p.read_csv('chow_vs_hfd_deseq2.csv')
+csv_data_untrimmed = p.read_csv('~/RNA_seq_analysis/chow_vs_hfd_deseq2.csv')
 
 # Map gene names
-gene_mapping = p.read_csv('~/GWAS_plink_analysis/GRCm38.75.gene_names', sep='\t', header=None, index_col=0)
+gene_mapping = p.read_csv('~/RNA_seq_analysis/GRCm38.75.gene_names', sep='\t', header=None, index_col=0)
 gene_mapping_dict = gene_mapping[1].to_dict()
 
 # Store data as [log2FoldChange, -log10 pvalue]
