@@ -34,8 +34,19 @@ plink --vcf lab3_gwas_refined.vcf.gz --clump lab3_gwas_covar.assoc.linear
 from qqman import qqman
 import matplotlib.pyplot as plt
 import pandas as pd
+import zipfile
 
-covdata = pd.read_csv("lab3_gwas_covar.assoc.linear", delim_whitespace=True)
+# Extract zip file
+zip_filename = "lab3_gwas_covar.zip"
+with zipfile.ZipFile(zip_filename, "r") as zip_ref:
+    zip_ref.extractall()
+
+# Read the extracted CSV file
+with zipfile.ZipFile(zip_filename, "r") as zip_ref:
+    with zip_ref.open("lab3_gwas_covar.assoc.linear", "r") as csv_file:
+        covdata = pd.read_csv(csv_file, delim_whitespace=True)
+
+# With extracted data built plots
 fig, (ax0, ax1) = plt.subplots(1, 2, gridspec_kw={'width_ratios': [2, 1]})
 fig.set_size_inches((15, 5))
 qqman.manhattan(covdata, ax=ax0)
